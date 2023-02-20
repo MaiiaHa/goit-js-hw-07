@@ -79,6 +79,8 @@ function createGalleryCardsMarkup(galleryItems) {
      </div>`;
     })
     .join('');
+
+  // добавить всем каритнкам loading = 'lazy';
 }
 function onGalleryContainerClick(evt) {
   const isGalleryContainImg = evt.target.classList.contains('gallery__item');
@@ -87,9 +89,13 @@ function onGalleryContainerClick(evt) {
     return;
   }
   // запустити модалку
-  console.log(isGalleryContainImg);
+  const instance = basicLightbox.create(`
+    <img src="${original}" width="800" height="600">
+`);
+  instance.show();
 }
 
 function closeModalEsc() {
   // закрити модалку
+  instance.close();
 }
