@@ -62,6 +62,7 @@ const galleryMarkup = createGalleryCardsMarkup(galleryItems);
 imgsContainer.insertAdjacentHTML('beforeend', galleryMarkup);
 
 imgsContainer.addEventListener('click', onGalleryContainerClick);
+imgsContainer.addEventListener('keydown', closeModalEsc);
 
 function createGalleryCardsMarkup(galleryItems) {
   return galleryItems
@@ -83,19 +84,27 @@ function createGalleryCardsMarkup(galleryItems) {
   // добавить всем каритнкам loading = 'lazy';
 }
 function onGalleryContainerClick(evt) {
-  const isGalleryContainImg = evt.target.classList.contains('gallery__item');
+  evt.preventDefault();
 
+  const isGalleryContainImg = evt.target.classList.contains('gallery__image');
   if (!isGalleryContainImg) {
     return;
   }
-  // запустити модалку
+  // console.log('evt.target', evt.target);
+  // console.log('evt.target', evt.target.src);
+  // запустити модалку onShow: (instance) => {},
   const instance = basicLightbox.create(`
-    <img src="${original}" width="800" height="600">
-`);
-  instance.show();
+      <img src="${evt.target.src}" width="800" height="600">
+  `);
+  // instance.show();
+  instance.show(evt => evt.target);
+  // console.log('lightbox now visible');
 }
 
-function closeModalEsc() {
-  // закрити модалку
-  instance.close();
+function closeModalEsc(e) {
+  // закрити модалку onClose: (instance) => {}
+  console.log('close modal', e);
+  // instance.close();
+
+  instance.close(e => console.log('lightbox not visible anymore'));
 }
