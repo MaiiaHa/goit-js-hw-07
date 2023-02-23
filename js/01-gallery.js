@@ -62,7 +62,6 @@ const galleryMarkup = createGalleryCardsMarkup(galleryItems);
 imgsContainer.insertAdjacentHTML('beforeend', galleryMarkup);
 
 imgsContainer.addEventListener('click', onGalleryContainerClick);
-imgsContainer.addEventListener('keydown', closeModalEsc);
 
 function createGalleryCardsMarkup(galleryItems) {
   return galleryItems
@@ -85,7 +84,7 @@ function createGalleryCardsMarkup(galleryItems) {
 }
 
 function onGalleryContainerClick(evt) {
-  evt.preventDefault();
+  evt.preventDefault(); // do not save img
 
   const isGalleryContainImg = evt.target.classList.contains('gallery__image');
   if (!isGalleryContainImg) {
@@ -93,20 +92,20 @@ function onGalleryContainerClick(evt) {
   }
   evt.target.src = evt.target.dataset.source; // chance for a big picture
 
-  // запустити модалку onShow: (instance) => {},
-  basicLightbox
-    .create(
-      `
-    <img src="${evt.target.src}" width="800" height="600">
+  const instance = basicLightbox.create(
     `
-    )
-    .show();
-}
+  <img src="${evt.target.src}" width="800" height="600">
+  `
+  );
+  instance.show();
 
-function closeModalEsc() {
-  // закрити модалку onClose: (instance) => {}
-  basicLightbox.close();
-
-  console.log('closed modal');
-  // instance.close(() => console.log('lightbox not visible anymore'));
+  imgsContainer.addEventListener(
+    'keydown',
+    evt => {
+      if (evt.code === 'Escape') {
+        instance.close();
+      }
+    },
+    { once: true } // close after first click on escape
+  );
 }

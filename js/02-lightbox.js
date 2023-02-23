@@ -30,3 +30,39 @@ SimpleLightbox, яка візьме на себе обробку кліків п
 до зображень з атрибута alt. Нехай підпис буде знизу і з'являється через 
 250 мілісекунд після відкриття зображення.
 */
+
+const imgsContainer = document.querySelector('.gallery');
+const galleryMarkup = createGalleryCardsMarkup(galleryItems);
+
+imgsContainer.insertAdjacentHTML('beforeend', galleryMarkup);
+// imgsContainer.addEventListener('click', onGalleryContainerClick);
+
+function createGalleryCardsMarkup(galleryItems) {
+  return galleryItems
+    .map(({ preview, original, description }) => {
+      return `
+    <a class="gallery__item" href="${original}">
+      <img class="gallery__image" src="${preview}" alt="${description}" />
+    </a>`;
+    })
+    .join('');
+
+  // добавить всем каритнкам loading = 'lazy';
+}
+// function onGalleryContainerClick() {
+//   evt.preventDefault(); // do not save img
+// }
+
+const lightbox = new SimpleLightbox('.gallery a');
+gallery.on('show.simplelightbox', function (params) {
+  // evt.preventDefault();
+});
+gallery.on('captionsData', function (params) {
+  // captionsData();
+  console.log(params);
+});
+gallery.on('closed.simplelightbox', function (params) {
+  // evt.preventDefault();
+});
+
+// animationSpeed();
