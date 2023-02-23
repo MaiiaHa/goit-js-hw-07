@@ -1,7 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
+// console.log(galleryItems);
 
 /* 
 Завдання 1 - галерея зображень​
@@ -83,6 +83,7 @@ function createGalleryCardsMarkup(galleryItems) {
 
   // добавить всем каритнкам loading = 'lazy';
 }
+
 function onGalleryContainerClick(evt) {
   evt.preventDefault();
 
@@ -90,21 +91,22 @@ function onGalleryContainerClick(evt) {
   if (!isGalleryContainImg) {
     return;
   }
-  // console.log('evt.target', evt.target);
-  // console.log('evt.target', evt.target.src);
+  evt.target.src = evt.target.dataset.source; // chance for a big picture
+
   // запустити модалку onShow: (instance) => {},
-  const instance = basicLightbox.create(`
-      <img src="${evt.target.src}" width="800" height="600">
-  `);
-  // instance.show();
-  instance.show(evt => evt.target);
-  // console.log('lightbox now visible');
+  basicLightbox
+    .create(
+      `
+    <img src="${evt.target.src}" width="800" height="600">
+    `
+    )
+    .show();
 }
 
-function closeModalEsc(e) {
+function closeModalEsc() {
   // закрити модалку onClose: (instance) => {}
-  console.log('close modal', e);
-  // instance.close();
+  basicLightbox.close();
 
-  instance.close(e => console.log('lightbox not visible anymore'));
+  console.log('closed modal');
+  // instance.close(() => console.log('lightbox not visible anymore'));
 }
