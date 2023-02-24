@@ -79,8 +79,6 @@ function createGalleryCardsMarkup(galleryItems) {
      </div>`;
     })
     .join('');
-
-  // добавить всем каритнкам loading = 'lazy';
 }
 
 function onGalleryContainerClick(evt) {
@@ -109,3 +107,8 @@ function onGalleryContainerClick(evt) {
     { once: true } // close after first click on escape
   );
 }
+
+// добавим всем каритнкам loading = 'lazy';
+
+const lazyImg = document.querySelector('.gallery__image');
+lazyImg.loading = 'lazy';

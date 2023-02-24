@@ -46,6 +46,7 @@ function createGalleryCardsMarkup(galleryItems) {
     })
     .join('');
 }
+// добавить всем каритнкам loading = 'lazy';
 
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
