@@ -1,7 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
+// console.log(galleryItems);
 
 /* 
 Завдання 2 - бібліотека SimpleLightbox​
@@ -35,7 +35,6 @@ const imgsContainer = document.querySelector('.gallery');
 const galleryMarkup = createGalleryCardsMarkup(galleryItems);
 
 imgsContainer.insertAdjacentHTML('beforeend', galleryMarkup);
-// imgsContainer.addEventListener('click', onGalleryContainerClick);
 
 function createGalleryCardsMarkup(galleryItems) {
   return galleryItems
@@ -46,23 +45,9 @@ function createGalleryCardsMarkup(galleryItems) {
     </a>`;
     })
     .join('');
-
-  // добавить всем каритнкам loading = 'lazy';
 }
-// function onGalleryContainerClick() {
-//   evt.preventDefault(); // do not save img
-// }
 
-const lightbox = new SimpleLightbox('.gallery a');
-gallery.on('show.simplelightbox', function (params) {
-  // evt.preventDefault();
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: '250ms',
 });
-gallery.on('captionsData', function (params) {
-  // captionsData();
-  console.log(params);
-});
-gallery.on('closed.simplelightbox', function (params) {
-  // evt.preventDefault();
-});
-
-// animationSpeed();
