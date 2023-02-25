@@ -110,11 +110,14 @@ function onGalleryContainerClick(evt) {
 
 // add loading = 'lazy';
 
-const lazyImg = document.querySelector('.gallery__image');
-lazyImg.loading = 'lazy';
-
 // intersection observer - 'lazy' load
 const lazyImgs = document.querySelectorAll('.gallery__image');
+lazyImgs.forEach(img => {
+  img.loading = 'lazy';
+  img.height = '240px'; // should be for lazy works
+});
+
+console.log(lazyImgs);
 
 function handleIntersection(entries) {
   entries.forEach(entry => {
