@@ -108,7 +108,23 @@ function onGalleryContainerClick(evt) {
   );
 }
 
-// добавим всем каритнкам loading = 'lazy';
+// add loading = 'lazy';
 
 const lazyImg = document.querySelector('.gallery__image');
 lazyImg.loading = 'lazy';
+
+// intersection observer - 'lazy' load
+const lazyImgs = document.querySelectorAll('.gallery__image');
+
+function handleIntersection(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting);
+    entry.target.src = entry.target.dataset.source;
+    observer.unobserve(entry.target);
+  });
+}
+
+const observer = new IntersectionObserver(handleIntersection);
+lazyImgs.forEach(image => {
+  observer.observe(image);
+});
